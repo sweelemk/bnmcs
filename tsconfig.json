@@ -3,10 +3,10 @@
     "target": "es5",
     "lib": [
       "dom",
-      "dom.iterable",
       "esnext"
     ],
     "allowJs": true,
+    "experimentalDecorators": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -17,10 +17,20 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "jsx": "react-jsx",
     "noEmit": true,
-    "jsx": "react-jsx"
-  },
-  "include": [
-    "src"
-  ]
+    "include": [
+      "src"
+    ],
+    "exclude": [
+      "node_modules",
+      "build",
+      "scripts",
+      "webpack",
+      "jest",
+      "src/setupTests.ts",
+      "src/**/*.test.ts",
+      "src/**/*.test.tsx"
+    ]
+  }
 }
