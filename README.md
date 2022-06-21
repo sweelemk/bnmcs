@@ -1,5 +1,9 @@
 In the project directory, you can run:
 
+### `npm run json:server`
+
+Before starting app it is necessary to start json-server
+
 ### `npm start`
 
 Runs the app in the development mode.\
