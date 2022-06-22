@@ -1,36 +1,34 @@
-import {AppRoute} from "./interfaces";
-import {Intermediary, IntermediaryDetail} from "../pages/intermediary";
-import {Product, ProductDetail} from "../pages/product";
-import React from "react";
-import AppRouter from "./app-router/app-router";
+import React from 'react';
+import AppRouter from './app-router/app-router';
+import { Intermediary, IntermediaryDetail } from '../pages/intermediary';
+import { Product, ProductDetail } from '../pages/product';
+import { AppRoute } from './interfaces';
 
 export const routeMap: AppRoute[] = [
   {
     id: 'intermediary',
-    name: 'Intermediary',
+    name: 'Intermediaries',
     route: '/intermediary',
-    exact: true,
     Component: Intermediary,
+    isHeaderNav: true
   },
   {
     id: 'intermediary-detail',
     name: 'IntermediaryDetail',
     route: '/intermediary/:id',
-    exact: true,
-    Component: IntermediaryDetail,
+    Component: IntermediaryDetail
   },
   {
     id: 'product',
-    name: 'Product',
-    route: './product',
-    exact: true,
+    name: 'Products',
+    route: '/product',
     Component: Product,
+    isHeaderNav: true
   },
   {
     id: 'product-detail',
     name: 'ProductDetail',
-    route: './product/:id',
-    exact: true,
+    route: '/product/:id',
     Component: ProductDetail
   },
   {
@@ -42,5 +40,4 @@ export const routeMap: AppRoute[] = [
   }
 ];
 
-
-export const Router: React.FC = () => <AppRouter routes={routeMap} />
+export const Router: React.FC = () => <AppRouter routes={routeMap} />;
