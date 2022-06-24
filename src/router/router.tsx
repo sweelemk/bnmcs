@@ -19,6 +19,12 @@ export const routeMap: AppRoute[] = [
     Component: IntermediaryDetail
   },
   {
+    id: 'intermediary-add',
+    name: 'IntermediaryDetail',
+    route: '/intermediary/add',
+    Component: IntermediaryDetail
+  },
+  {
     id: 'product',
     name: 'Products',
     route: '/product',

@@ -135,11 +135,6 @@
       "exports": "never",
       "functions": "never"
     }],
-    "@typescript-eslint/explicit-function-return-type": ["error", {
-      "allowTypedFunctionExpressions": true,
-      "allowHigherOrderFunctions": true,
-      "allowConciseArrowFunctionExpressionsStartingWithVoid": true
-    }],
     "@typescript-eslint/member-ordering": ["error", {
       "default": [
         "public-static-field",

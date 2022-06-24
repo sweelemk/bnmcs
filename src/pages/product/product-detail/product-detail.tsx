@@ -1,10 +1,8 @@
-import React from "react";
+import React from 'react';
 import './product-detail.scss';
 
-const ProductDetail:React.FC = () => {
-  return (
-    <div>Product detail</div>
-  )
-}
+const ProductDetail:React.FC = () => (
+  <div>Product detail</div>
+);
 
 export default ProductDetail;
