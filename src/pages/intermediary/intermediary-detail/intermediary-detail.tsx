@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Button, Form, Input, Select, Space } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useIntermediary } from './hooks/useIntermediary';
+import { useIntermediaryHandlers } from './hooks/useIntermediaryHandlers';
 import { DropdownForm } from './components';
 import './intermediary-detail.scss';
 import { createIntermediary, getIntermediaryById, updateIntermediary } from '../../../api/services';
@@ -30,15 +30,11 @@ const IntermediaryDetail:React.FC = () => {
     state,
     setState,
     resetState,
-    handleNameChange,
     handleTypeChange,
-    handleOrderChange,
-    handleFromChange,
-    handleToChange,
-    handleRangeChange,
     handleDropdown,
-    handleDropdownState
-  } = useIntermediary();
+    handleDropdownState,
+    handleInputChange
+  } = useIntermediaryHandlers();
 
   const getItem = async (id: string) => {
     setLoading(true);
@@ -115,13 +111,13 @@ const IntermediaryDetail:React.FC = () => {
             label='Name'
             name='name'
           >
-            <Input value={state.name} onChange={handleNameChange} />
+            <Input value={state.name} onChange={handleInputChange} />
           </Form.Item>
           <Form.Item
             label='Order'
             name='order'
           >
-            <Input type='number' min={0} value={state.order} onChange={handleOrderChange} />
+            <Input type='number' min={0} value={state.order} onChange={handleInputChange} />
           </Form.Item>
           <Form.Item
             label='Type'
@@ -143,10 +139,10 @@ const IntermediaryDetail:React.FC = () => {
             <Input
               type='number'
               min={0}
-              max={state.to}
-              step={state.step}
-              value={state.from}
-              onChange={handleFromChange}
+              max={+state.to}
+              step={+state.step}
+              value={+state.from}
+              onChange={handleInputChange}
             />
           </Form.Item>
           <Form.Item
@@ -154,14 +150,14 @@ const IntermediaryDetail:React.FC = () => {
             name='to'
             hidden={state.type !== 'range'}
           >
-            <Input type='number' min={0} step={state.step} value={state.to} onChange={handleToChange} />
+            <Input type='number' min={0} step={+state.step} value={+state.to} onChange={handleInputChange} />
           </Form.Item>
           <Form.Item
             label='Step'
             name='step'
             hidden={state.type !== 'range'}
           >
-            <Input type='number' min={0} step={0.01} value={state.step} onChange={handleRangeChange} />
+            <Input type='number' min={0} step={0.01} value={+state.step} onChange={handleInputChange} />
           </Form.Item>
           <Form.Item {...dropdownLayout}>
             {

@@ -1,71 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Modal, Space, Table } from 'antd';
-import axios from 'axios';
 import { formatInTimeZone } from 'date-fns-tz';
 import enGB from 'date-fns/locale/en-GB';
-import { useNavigate } from 'react-router-dom';
-import { deleteIntermediary, getIntermediary, IntermediaryItem } from '../../../api/services';
+import { useIntermediaryList } from './hooks/useIntermediaryList';
+import { IntermediaryItem } from '../../../api/services';
 import { EmptyData, PageSpin } from '../../../views';
-import { notification } from '../../../helpers/notifications';
 import './intermediary-list.scss';
 
 const Intermediary: React.FC = () => {
   const navigate = useNavigate();
-  const [data, setData] = useState<IntermediaryItem[]>([]);
-  const [isLoading, setLoading] = useState<boolean>(true);
-  const [visible, setVisible] = useState<boolean>(false);
-  const [activeId, setActiveId] = useState<string | undefined>('');
-
-  const fetchData = async () => {
-    try {
-      const respData = await getIntermediary();
-      setData(respData);
-    } catch (e) {
-      if (axios.isAxiosError(e)) {
-        notification({ type: 'error', title: 'Something went wrong', description: e.message });
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const deleteField = async (id: string) => {
-    setLoading(true);
-    try {
-      await deleteIntermediary(id);
-      setActiveId('');
-    } catch (e) {
-      if (axios.isAxiosError(e)) {
-        notification({ type: 'error', title: 'Something went wrong', description: e.message });
-      }
-    } finally {
-      setLoading(false);
-      fetchData();
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const showModal = (id: string | undefined) => {
-    setVisible(true);
-    setActiveId(id);
-  };
-
-  const handleOkModal = () => {
-    setVisible(false);
-    activeId && deleteField(activeId);
-  };
-
-  const handleCancelModal = () => {
-    setVisible(false);
-    setActiveId(undefined);
-  };
-
-  const navigateToEdit = (id: string | undefined) => {
-    navigate(`../intermediary/${ id }`);
-  };
+  const {
+    data,
+    isLoading,
+    visible,
+    showModal,
+    handleOkModal,
+    handleCancelModal
+  } = useIntermediaryList();
 
   return (
     <PageSpin spinning={isLoading}>
@@ -95,7 +47,7 @@ const Intermediary: React.FC = () => {
                   key='action'
                   render={(_: any, record: IntermediaryItem) => (
                     <Space size='middle'>
-                      <Button type='link' onClick={() => navigateToEdit(record.id)}>Edit</Button>
+                      <Button type='link' onClick={() => navigate(`../intermediary/${ record.id }`)}>Edit</Button>
                       <Button type='link' onClick={() => showModal(record.id)}>Delete</Button>
                     </Space>
                   )}
